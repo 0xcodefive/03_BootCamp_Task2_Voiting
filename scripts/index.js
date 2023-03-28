@@ -221,8 +221,9 @@ async function castVote(sessionId, optionIndex, addrForVote) {
 async function _getVoteResult() {
   _setLoader("VoteResult");
 
-  while (resultTable.length > 1) {
-    resultTable.removeChild(resultTable[resultTable.length - 1]);
+  const rows = resultTable.getElementsByTagName("tr");
+  for (let i = rows.length - 1; i > 0; i--) {
+    resultTable.removeChild(rows[i]);
   }
 
   await getClosedSessions().then((sessions) => {
