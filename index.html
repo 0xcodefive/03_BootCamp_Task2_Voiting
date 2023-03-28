@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voting</title>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link href="/css/styles.css" rel="stylesheet" />
+    <script
+      type="application/javascript"
+      src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
+    ></script>
+  </head>
+  <body>
+    <wrap id="background_wrap"></wrap>
+
+    <header>
+        <div id="walletDisconect" class="block" style="display: none">
+          <label id="walletAddress"></label>
+          <div class="selected" onclick="btnDisconnectWallet()">
+            <h4>Отключить кошелек</h4>
+          </div>
+        </div>
+
+        <div id="btnConnectWallet-wrapper" class="block selected" onclick="btnConnectWallet()">
+        <div id="btnConnectWallet">
+          <h4>Подключи любой кошелёк, поддерживающий EVM</h4>
+        </div>
+      </div>
+    </header>
+    <main class="content" style="display: none;">    
+      <div id="CreateSession" class="block">
+        <h1>Создать новую сессию для голосования</h1>
+            <div class="checkbox">
+                <input type="checkbox" id="checkbox1" name="checkbox1" />
+                <span class="checkmark"></span>
+                <span class="label-text">С использование токена SBT (или NFT)</span>
+              </div>
+              <div id="text-input-container-token" class="input-row" style="display: none;">
+            <h4>Введите адрес токена:</h4><input type="text" id="text-input-token">
+              </div>
+
+            <h4>Укажите тему для голосования:</h4>
+            <input type="text" id="newVotingTopic"></input>
+
+            <h4>Добавьте варианты для голосования:</h4>
+            <div id="container">
+                <div id="inputs-container">
+                <div class="input-row" id="containerVoting">
+                    <input type="text">
+                    <input type="text">
+                </div>
+                </div>
+                <div>
+                <button id="add-input" onclick="addField()">+</button>
+                <button id="remove-input" onclick="removeField()">-</button>
+            </div>
+            </div>
+
+        <button id="collect-values" onclick="createVote()">Создать голосование</button>
+        </div>
+
+        <div id="CastVote" class="block">
+            <h1>Открытые голосования</h1>
+            <select id="topicCastVote"></select>
+            <div id="containerCastVote">
+
+            </div>
+        </div>
+
+        <div id="VoteResult" class="block">
+            <h1>Результаты прошедших голосований</h1>
+            <table id="resultTable">
+                <thead>
+                  <tr>
+                    <th>Тема</th>
+                    <th>Тип голосования</th>
+                    <th>Итоги голосования</th>
+                    <th>Результат</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Тело таблицы результатов -->
+                </tbody>
+              </table>
+        </div>
+
+        <div id="VoteOptions" class="block" style="display: none;">
+            <h1>Управление голосованием</h1>
+            <select id="curVoteOptions"></select>
+            <div class="input-row">
+                <h4>Установить кворум:</h4>
+                <input type="number" id="setMinQuorumValue" min="3" max="4_294_967_295"/>
+                <button onclick="_setMinQuorum()">Установить</button>
+            </div>
+            <div class="input-row">
+                <h4>Делегировать полномочия:</h4>
+                <input type="test" id="transferSessionOwnerValue"/>
+                <button onclick="_transferSessionOwner()">Установить</button>
+            </div>
+            <button id="closeVote" onclick="_closeSession()">Закрыть голосование</button>
+        </div>
+    </main>
+
+    <script src="/scripts/index.js" charset="UTF-8" defer></script>
+    <script src="/scripts/contract.js" charset="UTF-8"></script>
+  </body>
+</html>
