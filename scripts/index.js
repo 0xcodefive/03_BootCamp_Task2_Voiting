@@ -155,13 +155,13 @@ async function _getCastVote() {
   _removeLoader("CastVote");
   CastVote.style.display = activeSessions.length > 0 ? "block" : "none";
 
-  _topicCastVoteEventChange();
+  _topicCastVoteEventChange(true);
   _getVoteOptions();
 }
 
 topicCastVote.addEventListener("change", _topicCastVoteEventChange);
 
-async function _topicCastVoteEventChange() {
+async function _topicCastVoteEventChange(first = false) {
   _setLoader("CastVote");
   while (containerCastVote.firstChild) {
     containerCastVote.removeChild(containerCastVote.firstChild);
@@ -169,7 +169,9 @@ async function _topicCastVoteEventChange() {
   if (typeof activeSessions === "undefined") {
     return;
   }
-  const session = activeSessions[topicCastVote.selectedIndex];
+  const session = first
+    ? activeSessions[0]
+    : activeSessions[topicCastVote.selectedIndex];
   await getOption(session[1])
     .then((results) => {
       results.forEach((result, i) => {
