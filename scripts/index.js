@@ -128,7 +128,9 @@ async function createVote() {
     })
     .catch((error) => {
       console.log(error);
-      alert("Возникла некая ошибка, попробуйте позже");
+      try {
+        alert(`Возникла ошибка: ${error.data.message}`);
+      } catch {}
     });
   _removeLoader("CreateSession");
 }
